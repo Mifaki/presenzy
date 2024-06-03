@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { Link } from "@inertiajs/react";
 import { MenuItemProp, IUser } from "@/types";
-import { CircleUser, Contact, Home, Search } from "lucide-react";
+import { CalendarDays, CircleUser, Contact, Home, Search, Shapes } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import {
     DropdownMenu,
@@ -29,6 +29,18 @@ const links: MenuItemProp[] = [
         href: route("dashboard"),
         variant: "default",
         icon: <Home className="size-4" />
+    },
+    {
+        title: "Subject",
+        href: route("subject.index"),
+        variant: "default",
+        icon: <Shapes className="size-4" />,
+    },
+    {
+        title: "Attendance",
+        href: route("attendance"),
+        variant: "default",
+        icon: <CalendarDays className="size-4" />,
     },
     {
         title: "Profile",
