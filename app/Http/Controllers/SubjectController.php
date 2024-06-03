@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -39,7 +40,14 @@ class SubjectController extends Controller
             'desc' => 'required|string'
         ]);
 
-        $validatedData['lecturer_id'] = Auth::id();
+        $lecturerId = Auth::id();
+        $isLecturer = User::where('id', $lecturerId)->where('role_id', 2)->exists();
+        if (!$isLecturer) {
+            abort(403, 'Unauthorized');
+        }
+
+        $validatedData['lecturer_id'] = $lecturerId;
+
         Subject::create($validatedData);
 
         return redirect()->route('subject.index')->with('message', 'Subject created successfully.');
@@ -51,7 +59,7 @@ class SubjectController extends Controller
     public function show($id)
     {
         $subject = Subject::findOrFail($id);
-        return Inertia::render('Subject/Show', [
+        return Inertia::render('Subject/Edit', [
             'subject' => $subject
         ]);
     }

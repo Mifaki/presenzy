@@ -1,10 +1,23 @@
-import { DataTable } from "@/Components/DataTable"
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-import { ISubject, PageProps } from "@/types"
-import { Head } from "@inertiajs/react"
-import { columns } from "./column"
+import { columns } from "./column";
+import { DataTable } from "@/Components/DataTable";
+import { Head } from "@inertiajs/react";
+import { Input } from "@/Components/ui/input";
+import { ISubject, PageProps } from "@/types";
+import { useDebounce } from '@uidotdev/usehooks';
+import { useState } from "react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Button } from "@/Components/ui/button";
+import { DiamondPlus } from "lucide-react";
 
 const Subjects = ({ subjects, auth }: PageProps<{ subjects: ISubject[] }>) => {
+    const [nameFilter, setNameFilter] = useState("");
+    const [debouncedNameFilter] = useDebounce(nameFilter, 800);
+
+    const filteredSubjects = debouncedNameFilter
+        ? subjects.filter(subject => subject.name.toLowerCase().includes(debouncedNameFilter.toLowerCase()))
+        : subjects;
+
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -17,10 +30,24 @@ const Subjects = ({ subjects, auth }: PageProps<{ subjects: ISubject[] }>) => {
             <Head title="Subject" />
 
             <div className="flex flex-col gap-4 md:gap-8">
-                <DataTable columns={columns} data={subjects} />
+                <div className="flex items-center justify-between">
+                    <Input
+                        type="text"
+                        placeholder="Filter by name..."
+                        value={nameFilter}
+                        onChange={(e) => setNameFilter(e.target.value)}
+                        className="max-w-sm"
+                    />
+                    <Button
+                    >
+                        <DiamondPlus className="text-white dark:text-black size-5 font-semibold mr-2" />
+                        Create New Subject
+                    </Button>
+                </div>
+                <DataTable columns={columns} data={filteredSubjects} />
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }
 
-export default Subjects
+export default Subjects;

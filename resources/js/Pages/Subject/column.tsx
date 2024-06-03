@@ -3,10 +3,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem
+    DropdownMenuItem,
+    DropdownMenuTrigger
 } from "@/Components/ui/dropdown-menu";
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ISubject } from "@/types";
+import { router } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
 
 const convertUTCToWIB = (utcTime: string): string => {
     const utcDate = new Date(utcTime);
@@ -44,19 +46,30 @@ export const columns: ColumnDef<ISubject>[] = [
     {
         accessorKey: "actions",
         header: "Actions",
-        cell: () => (
-            <DropdownMenu>
-                <DropdownMenuTrigger>
-                    <span className="flex items-center gap-1 p-2 bg-slate-100 rounded-lg">
-                        Action
-                        <ChevronsDown className="size-4" />
-                    </span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem>Deactivate</DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        ),
+        cell: ({ row }) => {
+            const handleEdit = () => {
+                router.visit(route("subject.edit", row.original.id));
+            };
+
+            const handleDelete = () => {
+                Inertia.delete(route("subject.destroy", row.original.id));
+                window.location.reload();
+            };
+
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <span className="flex items-center gap-1 p-2 bg-blue-50 dark:bg-gray-800 dark:text-white rounded-lg">
+                            Action
+                            <ChevronsDown className="size-4" />
+                        </span>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onSelect={handleDelete}>Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            );
+        },
     },
 ];
