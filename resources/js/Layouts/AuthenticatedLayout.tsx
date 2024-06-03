@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { Link } from "@inertiajs/react";
-import { MenuItemProp, User } from "@/types";
-import { CircleUser, Search } from "lucide-react";
+import { MenuItemProp, IUser } from "@/types";
+import { CircleUser, Contact, Home, Search } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import {
     DropdownMenu,
@@ -28,11 +28,13 @@ const links: MenuItemProp[] = [
         title: "Dashboard",
         href: route("dashboard"),
         variant: "default",
+        icon: <Home className="size-4" />
     },
     {
         title: "Profile",
         href: route("profile.edit"),
         variant: "ghost",
+        icon: <Contact className="size-4" />
     },
 ];
 
@@ -41,7 +43,7 @@ export default function AuthenticatedLayout({
     header,
     children,
 }: PropsWithChildren<{
-    user: User;
+    user: IUser;
     header?: ReactNode;
 }>) {
     const [isCollapsed, setIsCollapsed] = useState(false);

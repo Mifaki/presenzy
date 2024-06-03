@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { Home } from "lucide-react";
+import { ShieldHalf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/Components/ui/button";
 import {
@@ -9,7 +9,6 @@ import {
     TooltipTrigger,
 } from "@/Components/ui/tooltip";
 import { MenuItemProp } from "@/types";
-import ApplicationLogo from "@/Components/ApplicationLogo";
 
 type Props = {
     links: MenuItemProp[];
@@ -37,8 +36,8 @@ const CollapsedMenuItem = ({ link, isActive }: MenuItemProps) => {
                             "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                     )}
                 >
-                    <Home className="h-4 w-4" />
-                    <span className="sr-only">{link.title}</span>
+                    {link.icon}
+                    <span className="ml-2 sr-only">{link.title}</span>
                 </Link>
             </TooltipTrigger>
             <TooltipContent side="right" className="flex items-center gap-4">
@@ -57,8 +56,8 @@ const ExpandedMenuItem = ({ link, isActive }: MenuItemProps) => {
                 "justify-start"
             )}
         >
-            <Home className="mr-2 h-4 w-4" />
-            {link.title}
+            {link.icon}
+            <span className="ml-2">{link.title}</span>
         </Link>
     );
 };
@@ -77,9 +76,9 @@ const Sidebar = ({ links, isCollapsed }: Props) => {
                                 "justify-center": isCollapsed,
                             })}
                         >
-                            <ApplicationLogo className="h-6 w-6 fill-current text-gray-500" />
+                            <ShieldHalf className="h-6 w-6 text-gray-500" />
                             {!isCollapsed && (
-                                <span className="pl-2">Acme Inc</span>
+                                <span className="pl-2">Presenzy</span>
                             )}
                         </Link>
                     </div>

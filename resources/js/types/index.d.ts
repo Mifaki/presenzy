@@ -20,6 +20,7 @@ export type PageProps<
 export type MenuItemProp = {
     title: string;
     href: string;
+    icon: React.ReactNode
     variant:
         | "link"
         | "default"

@@ -1,9 +1,8 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import { Button } from "@/Components/ui/button";
-import { Home, Menu } from "lucide-react";
+import { Menu, ShieldHalf } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import { MenuItemProp } from "@/types";
-import ApplicationLogo from "@/Components/ApplicationLogo";
 
 const MobileMenu = ({ links }: { links: MenuItemProp[] }) => {
     return (
@@ -22,20 +21,20 @@ const MobileMenu = ({ links }: { links: MenuItemProp[] }) => {
                 <nav className="grid gap-2 text-lg font-medium">
                     <Link
                         href="#"
-                        className="flex items-center gap-2 text-lg font-semibold"
+                        className="flex items-center gap-2 text-lg font-semibold mb-4"
                     >
-                        <ApplicationLogo className="h-8 w-8 fill-current text-gray-500" />
+                        <ShieldHalf className="h-8 w-8 text-gray-500" />
 
-                        <span>Acme Inc</span>
+                        <span>Presenzy</span>
                     </Link>
                     {links.map((link, index) => {
                         return (
                             <Link
                                 key={index}
                                 href={link.href}
-                                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                className="mx-[-0.65rem] flex items-center gap-2 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <Home className="h-5 w-5" />
+                                {link.icon}
                                 {link.title}
                             </Link>
                         );
