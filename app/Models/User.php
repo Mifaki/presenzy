@@ -17,9 +17,13 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
         'name',
         'email',
         'password',
+        'faculty',
+        'gender',
+        'nim'
     ];
 
     /**
@@ -43,5 +47,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role() {
+        return $this->belongsTo(Role::class, 'path_id');
     }
 }

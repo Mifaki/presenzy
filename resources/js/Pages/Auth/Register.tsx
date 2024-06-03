@@ -12,13 +12,18 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { InputError } from "@/Components/ui/InputError";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
+        role_id: "",
         name: "",
         email: "",
         password: "",
         password_confirmation: "",
+        faculty: "",
+        gender: "",
+        nim: "",
     });
 
     useEffect(() => {
@@ -105,7 +110,64 @@ export default function Register() {
                                     message={errors.password_confirmation}
                                 />
                             </div>
-                            <Button type="submit" className="w-full">
+                            <div className="grid gap-2">
+                                <Label htmlFor="faculty">Faculty</Label>
+                                <Input
+                                    id="faculty"
+                                    placeholder="Faculty of Computer Science"
+                                    onChange={(e) =>
+                                        setData("faculty", e.target.value)
+                                    }
+                                    value={data.faculty}
+                                    required
+                                />
+                                <InputError message={errors.faculty} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="role_id">Role</Label>
+                                <Select
+                                    onValueChange={(value) => setData("role_id", value)}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select a role" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="1">Admin</SelectItem>
+                                        <SelectItem value="2">Lecturer</SelectItem>
+                                        <SelectItem value="3">Student</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.role_id} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="gender">Gender</Label>
+                                <Select
+                                    onValueChange={(value) => setData("gender", value)}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select a gender" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="male">Male</SelectItem>
+                                        <SelectItem value="female">Female</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.gender} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="nim">NIM</Label>
+                                <Input
+                                    id="nim"
+                                    placeholder="Student Number"
+                                    onChange={(e) =>
+                                        setData("nim", e.target.value)
+                                    }
+                                    value={data.nim}
+                                    required
+                                />
+                                <InputError message={errors.nim} />
+                            </div>
+                            <Button type="submit" className="w-full" disabled={processing}>
                                 Create an account
                             </Button>
                         </div>
