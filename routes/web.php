@@ -1,20 +1,22 @@
 <?php
 
+use App\Http\Controllers\AttendanceSubmissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\AttendanceController;
+use App\Models\AttendanceSubmission;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+    return Inertia::render('Welcome/Index', [
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::post('/attendance-submission', [AttendanceSubmissionController::class, 'create'])->name('attendance-submission.create');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
