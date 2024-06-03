@@ -38,7 +38,7 @@ const links: MenuItemProp[] = [
     },
     {
         title: "Attendance",
-        href: route("attendance"),
+        href: route("attendance.index"),
         variant: "default",
         icon: <CalendarDays className="size-4" />,
     },

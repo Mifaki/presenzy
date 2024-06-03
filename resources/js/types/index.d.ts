@@ -18,6 +18,16 @@ export interface ISubject {
     updated_at: string;
 }
 
+export interface IAttendance {
+    id: number;
+    subject_id: string;
+    name: string;
+    desc: string;
+    subject_name: string;
+    start_at: string;
+    end_at: string;
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
@@ -25,6 +35,7 @@ export type PageProps<
         user: IUser;
     };
     subjects?: ISubject[];
+    attendances?: IAttendance[];
 };
 
 export type MenuItemProp = {

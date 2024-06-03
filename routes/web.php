@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,10 +32,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/subject/{id}/edit', [SubjectController::class, 'edit'])->name('subject.edit');
     Route::put('/subject/{id}', [SubjectController::class, 'update'])->name('subject.update');
     Route::delete('/subject/{id}', [SubjectController::class, 'destroy'])->name('subject.destroy');
-});
 
-Route::get('/attendance', function() {
-    return Inertia::render('Attendance');
-})->name('attendance');
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/create', [AttendanceController::class, 'create'])->name('attendance.create');
+    Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
+    Route::get('/attendance/{id}/edit', [AttendanceController::class, 'edit'])->name('attendance.edit');
+    Route::put('/attendance/{id}', [AttendanceController::class, 'update'])->name('attendance.update');
+    Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
+});
 
 require __DIR__.'/auth.php';
