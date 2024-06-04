@@ -4,9 +4,12 @@ export interface IUser {
     email: string;
     email_verified_at: string;
     role_id: string;
+    role_name?: string;
     faculty: string;
     gender: string;
     nim: string;
+    created_at?: string;
+    updated_at?: string;
 }
 
 export interface ISubject {
@@ -28,6 +31,11 @@ export interface IAttendance {
     end_at: string;
 }
 
+export interface IRole {
+    id: number;
+    name: string;
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
@@ -36,6 +44,8 @@ export type PageProps<
     };
     subjects?: ISubject[];
     attendances?: IAttendance[];
+    users?: IUser[];
+    roles?: IRole[];
 };
 
 export type MenuItemProp = {
