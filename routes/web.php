@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Route::post('/attendance-submission', [AttendanceSubmissionController::class, 'create'])->name('attendance-submission.create');
 
+Route::post('/user-by-id', [UserController::class, 'getUserById'])->name('user.byId');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

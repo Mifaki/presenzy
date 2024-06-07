@@ -85,7 +85,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'id' => 'required|unique:users,id,except,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255'.$user->id,
+            'email' => 'required|string|email|max:255' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
             'faculty' => 'required|string',
             'gender' => 'required|in:male,female',
@@ -109,5 +109,30 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('user.index')->with('message', 'User deleted successfully.');
+    }
+
+    public function getUserById(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:users,id',
+        ]);
+
+        $user = User::with('role')->find($request->id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'faculty' => $user->faculty,
+            'gender' => $user->gender,
+            'nim' => $user->nim,
+            'role_name' => $user->role->name,
+        ];
+
+        return response()->json($userData, 200);
     }
 }
