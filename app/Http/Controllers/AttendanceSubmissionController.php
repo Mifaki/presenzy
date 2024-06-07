@@ -10,12 +10,10 @@ use Inertia\Inertia;
 
 class AttendanceSubmissionController extends Controller
 {
-
     public function index(Request $request)
     {
         return Inertia::render('Welcome/Index');
     }
-
 
     public function create(Request $request)
     {
@@ -39,10 +37,17 @@ class AttendanceSubmissionController extends Controller
             return response()->json(['message' => 'No attendance found for the current time range'], 404);
         }
 
+        $latestSubmission = AttendanceSubmission::where('user_id', $user->id)
+                                                ->where('attendance_id', $attendance->id)
+                                                ->orderBy('created_at', 'desc')
+                                                ->first();
+
+        $status = $latestSubmission && $latestSubmission->status === 'IN' ? 'OUT' : 'IN';
 
         $attendanceSubmission = AttendanceSubmission::create([
             'user_id' => $user->id,
             'attendance_id' => $attendance->id,
+            'status' => $status,
         ]);
 
         return response()->json(['message' => 'Attendance submission created successfully', 'data' => $attendanceSubmission], 200);

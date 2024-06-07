@@ -12,6 +12,7 @@ class AttendanceSubmission extends Model
     protected $fillable = [
         'attendance_id' ,
         'user_id',
+        'status'
     ];
 
     public function attendance() {

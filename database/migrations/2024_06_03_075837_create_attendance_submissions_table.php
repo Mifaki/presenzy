@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('attendance_id');
             $table->string('user_id');
+            $table->enum('status', ['IN', 'OUT']);
             $table->timestamps();
         });
     }
