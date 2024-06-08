@@ -1,6 +1,6 @@
 import { columns } from "./column";
 import { DataTable } from "@/Components/DataTable";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { Input } from "@/Components/ui/input";
 import { ISubject, PageProps } from "@/types";
 import { useDebounce } from '@uidotdev/usehooks';
@@ -39,6 +39,7 @@ const Subjects = ({ subjects, auth }: PageProps<{ subjects: ISubject[] }>) => {
                         className="max-w-sm"
                     />
                     <Button
+                     onClick={() => router.visit(route("subject.create"))}
                     >
                         <DiamondPlus className="text-white dark:text-black size-5 font-semibold mr-2" />
                         Create New Subject

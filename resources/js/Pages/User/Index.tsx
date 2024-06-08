@@ -1,5 +1,5 @@
 import { DataTable } from "@/Components/DataTable";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { Input } from "@/Components/ui/input";
 import { ISubject, IUser, PageProps } from "@/types";
 import { useDebounce } from '@uidotdev/usehooks';
@@ -39,6 +39,7 @@ const User = ({ users, auth }: PageProps<{ users: IUser[] }>) => {
                         className="max-w-sm"
                     />
                     <Button
+                     onClick={() => router.visit(route("user.create"))}
                     >
                         <DiamondPlus className="text-white dark:text-black size-5 font-semibold mr-2" />
                         Create New User

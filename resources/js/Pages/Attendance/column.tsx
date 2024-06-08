@@ -36,12 +36,12 @@ export const columns: ColumnDef<IAttendance>[] = [
     {
         accessorKey: "start_at",
         header: "Start At",
-        cell: ({ row }) => convertUTCToWIB(row.original.start_at),
+        cell: ({ row }) => row.original.start_at,
     },
     {
         accessorKey: "end_at",
         header: "End At",
-        cell: ({ row }) => convertUTCToWIB(row.original.end_at),
+        cell: ({ row }) => row.original.end_at,
     },
     {
         accessorKey: "actions",

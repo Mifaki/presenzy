@@ -2,15 +2,50 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { Label } from "@/Components/ui/label";
 import { Input } from "@/Components/ui/input";
 import { InputError } from "@/Components/ui/InputError";
 import { Button } from "@/Components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
+import axios from "axios";
 
 const Create = ({ auth }: PageProps) => {
-    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+    const [newUid, setNewUid] = useState("");
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            fetchUid();
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const fetchUid = async () => {
+        try {
+            const response = await axios.get('/UIDContainer.php');
+            console.log('inisiate')
+            if (newUid !== response.data) {
+                console.log('called')
+                setNewUid(response.data);
+                setData(prevState => ({
+                    ...prevState,
+                    id: response.data
+                }));
+
+            }
+        } catch (error) {
+            console.error('Error fetching UID:', error);
+        }
+    };
+
+    const {
+        data,
+        setData,
+        errors,
+        post,
+        processing,
+    } = useForm({
         id: "",
         name: "",
         email: "",
@@ -26,6 +61,12 @@ const Create = ({ auth }: PageProps) => {
         e.preventDefault();
         post(route("user.store"));
     };
+
+
+    useEffect(() => {
+        console.log('newUid', newUid)
+        console.log('data', data.id)
+    }, [data])
 
     return (
         <AuthenticatedLayout
@@ -48,6 +89,7 @@ const Create = ({ auth }: PageProps) => {
                             value={data.id}
                             onChange={(e) => setData("id", e.target.value)}
                             required
+                            disabled={true}
                             autoComplete="id"
                         />
                         <InputError className="mt-2" message={errors.id} />

@@ -36,12 +36,12 @@ export const columns: ColumnDef<ISubject>[] = [
     {
         accessorKey: "created_at",
         header: "Created At",
-        cell: ({ row }) => convertUTCToWIB(row.original.created_at),
+        cell: ({ row }) => row.original.created_at,
     },
     {
         accessorKey: "updated_at",
         header: "Updated At",
-        cell: ({ row }) => convertUTCToWIB(row.original.updated_at),
+        cell: ({ row }) => row.original.updated_at,
     },
     {
         accessorKey: "actions",
