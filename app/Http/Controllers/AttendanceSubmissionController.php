@@ -25,7 +25,7 @@ class AttendanceSubmissionController extends Controller
         $user = User::where('name', $request->name)->where('nim', $request->nim)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => 'User tidak valid!'], 404);
         }
 
         $currentTime = now();
@@ -34,7 +34,7 @@ class AttendanceSubmissionController extends Controller
                                  ->first();
 
         if (!$attendance) {
-            return response()->json(['message' => 'No attendance found for the current time range'], 404);
+            return response()->json(['message' => 'Tidak ada absensi saat ini'], 404);
         }
 
         $latestSubmission = AttendanceSubmission::where('user_id', $user->id)
@@ -50,6 +50,6 @@ class AttendanceSubmissionController extends Controller
             'status' => $status,
         ]);
 
-        return response()->json(['message' => 'Attendance submission created successfully', 'data' => $attendanceSubmission], 200);
+        return response()->json(['message' => 'Absensi berhasil! (' . $status . ')', 'data' => $attendanceSubmission], 200);
     }
 }

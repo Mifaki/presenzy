@@ -6,6 +6,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -114,7 +115,7 @@ class UserController extends Controller
     public function getUserById(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:users,id',
+            'id' => 'required|string|exists:users,id',
         ]);
 
         $user = User::with('role')->find($request->id);

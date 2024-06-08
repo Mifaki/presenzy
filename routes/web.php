@@ -5,7 +5,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
-use App\Models\AttendanceSubmission;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,8 +17,6 @@ Route::get('/', function () {
 });
 
 Route::post('/attendance-submission', [AttendanceSubmissionController::class, 'create'])->name('attendance-submission.create');
-
-Route::post('/user-by-id', [UserController::class, 'getUserById'])->name('user.byId');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

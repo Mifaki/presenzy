@@ -18,21 +18,34 @@ class UserSeeder extends Seeder
         $studentRole = Role::where('name', 'student')->first();
 
         User::factory()->create([
+            'id' => $this->generateRandomId(),
             'role_id' => $adminRole->id,
             'name' => 'Admin User',
             'email' => 'admin@admin.com',
         ]);
 
         User::factory()->create([
+            'id' => $this->generateRandomId(),
             'role_id' => $lecturerRole->id,
             'name' => 'Lecturer User',
             'email' => 'lecturer@lecturer.com',
         ]);
 
         User::factory()->create([
+            'id' => 'A3A84C06',
             'role_id' => $studentRole->id,
             'name' => 'Student User',
             'email' => 'student@student.ub.ac.id',
         ]);
+    }
+
+        /**
+     * Generate a random ID.
+     *
+     * @return string
+     */
+    private function generateRandomId(): string
+    {
+        return uniqid();
     }
 }
