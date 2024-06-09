@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'id' => $this->generateRandomId(),
+            'id' => 2,
             'role_id' => $lecturerRole->id,
             'name' => 'Lecturer User',
             'email' => 'lecturer@lecturer.com',
