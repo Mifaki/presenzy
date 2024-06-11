@@ -35,18 +35,31 @@ class AttendanceSeeder extends Seeder
                 'end_at' => $endDateTime,
             ]);
 
-            $studentRole = Role::where('name', 'student')->first();
-            $student = $studentRole ? $studentRole->users->first() : null;
+            if ($i === 0) {
+                $kevin = User::where('name', 'Kevin Josua')->first();
+                if (!$kevin) {
+                    $this->command->warn('Kevin Josua not found.');
+                    return;
+                }
 
-            if (!$student) {
-                $this->command->warn('No student found. Attendance submission cannot be created without a student.');
-                return;
+                $faiz = User::where('name', 'Ahmad Faiz Agustianto')->first();
+                if (!$faiz) {
+                    $this->command->warn('Ahmad Faiz Agustianto not found.');
+                    return;
+                }
+
+                AttendanceSubmission::create([
+                    'attendance_id' => $attendance->id,
+                    'user_id' => $kevin->id,
+                    'status' => 'IN',
+                ]);
+
+                AttendanceSubmission::create([
+                    'attendance_id' => $attendance->id,
+                    'user_id' => $faiz->id,
+                    'status' => 'IN',
+                ]);
             }
-
-            AttendanceSubmission::create([
-                'attendance_id' => $attendance->id,
-                'user_id' => $student->id,
-            ]);
 
             $startDateTime = $endDateTime;
         }

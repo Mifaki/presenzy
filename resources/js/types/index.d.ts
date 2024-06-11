@@ -36,6 +36,15 @@ export interface IRole {
     name: string;
 }
 
+interface ISubmission {
+    id: number;
+    status: string;
+    created_at: string;
+    user_name: string;
+    user_nim: string;
+    subject_name: string;
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
@@ -46,6 +55,7 @@ export type PageProps<
     attendances?: IAttendance[];
     users?: IUser[];
     roles?: IRole[];
+    submissions?: ISubmission[];
 };
 
 export type MenuItemProp = {

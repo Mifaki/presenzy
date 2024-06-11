@@ -12,7 +12,22 @@ class AttendanceSubmissionController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('Welcome/Index');
+        $submissions = AttendanceSubmission::with(['user', 'attendance.subject'])
+            ->get()
+            ->map(function ($submission) {
+                return [
+                    'id' => $submission->id,
+                    'status' => $submission->status,
+                    'created_at' => $submission->created_at,
+                    'user_name' => $submission->user->name,
+                    'user_nim' => $submission->user->nim,
+                    'subject_name' => $submission->attendance->subject->name,
+                ];
+            });
+
+        return Inertia::render('AttendanceSubmission/Index', [
+            'submissions' => $submissions,
+        ]);
     }
 
     public function create(Request $request)

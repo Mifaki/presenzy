@@ -34,8 +34,15 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'id' => 'A3A84C06',
             'role_id' => $studentRole->id,
-            'name' => 'Student User',
-            'email' => 'student@student.ub.ac.id',
+            'name' => 'Kevin Josua',
+            'email' => 'kevin@student.ub.ac.id',
+        ]);
+
+        User::factory()->create([
+            'id' => '631B1F0D',
+            'role_id' => $studentRole->id,
+            'name' => 'Ahmad Faiz Agustianto',
+            'email' => 'ahmdpais@student.ub.ac.id',
         ]);
     }
 

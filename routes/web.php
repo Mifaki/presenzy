@@ -4,17 +4,13 @@ use App\Http\Controllers\AttendanceSubmissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome/Index', [
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
 Route::post('/attendance-submission', [AttendanceSubmissionController::class, 'create'])->name('attendance-submission.create');
 
@@ -48,6 +44,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
+    Route::get('/attendance-submissions', [AttendanceSubmissionController::class, 'index'])->name('attendance-submissions.index');
+
 });
 
 require __DIR__.'/auth.php';

@@ -49,6 +49,12 @@ const links: MenuItemProp[] = [
         icon: <CalendarDays className="size-4" />,
     },
     {
+        title: "Attendance Submssion",
+        href: route("attendance-submissions.index"),
+        variant: "default",
+        icon: <CalendarDays className="size-4" />,
+    },
+    {
         title: "Profile",
         href: route("profile.edit"),
         variant: "ghost",

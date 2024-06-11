@@ -107,7 +107,7 @@ const Welcome = ({ className = "" }) => {
     };
 
     useEffect(() => {
-        if (newUid != data.id) {
+        if (newUid != data.id && newUid != '0') {
             console.log('fetch user data called')
             fetchUserData(newUid);
         }
